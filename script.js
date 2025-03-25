@@ -13,9 +13,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageTitle = document.getElementById('page-title');
     const mainContent = document.getElementById('main-content');
 
+
+
+
+
+
+
+
+
+
+
+    fetch("http://127.0.0.1:8000/authenticate/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: "amar01",
+          first_name: "Amar",
+          last_name: "Araar",
+          email: "amar01@gmail.com",
+          user_type: "Woofer"
+        })
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Erreur HTTP " + response.status);
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById("username").textContent = data.username || "Non disponible";
+          document.getElementById("email").textContent = data.email || "Non disponible";
+          document.getElementById("userType").textContent = data.user_type || "Non spécifié";
+        })
+        .catch(error => {
+          console.error("Erreur :", error);
+          document.body.innerHTML = "<h3>Impossible de charger les données de l'utilisateur.</h3>";
+        });
+      
+
+
+
+
+
+
+
+
     // Pages content
     const pages = {
         dashboard: `
+
             <div class="dashboard-grid">
                 <div class="card">
                     <h3>Niveau de stock</h3>
